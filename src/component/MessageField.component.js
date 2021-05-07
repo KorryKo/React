@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
-import css from "./layout.css";
+import "./layout.css";
 import Message from "./Message.component";
 
-const messageField = () => {
+const MessageField = () => {
     const [messages, setMessages] = useState([]);
     const [messageValue, setMessageValue] = useState("");
-    const [messageAuthor, setMessageAuthor] = useState("");
-
     const addMessage = () => {
       const newAuthor = 'You'
       const message = {
         value: messageValue,
         author: newAuthor
       }
-      setMessages(oldMessage => [...oldMessage, message]);
-      setMessageAuthor(newAuthor)
+      setMessages(oldMessages => [...oldMessages, message]);
     }
 
     const changeMessage = (changedMessage) => {
@@ -29,19 +26,18 @@ const messageField = () => {
         value: newMessageValue,
         author: newAuthor
       }
-      setMessages(oldMessage => [...oldMessage, message]);
-      setMessageAuthor(newAuthor)
+      setMessages(oldMessages => [...oldMessages, message]);
     }
 
     useEffect(() => {
-      if (messageAuthor != 'Bot' && messages.length != 0) {
+      if (messages.length != 0 && messages[messages.length-1].author != "Bot") {
         botMessage()
       }
     }, [messages]);
 
 
     return(
-      <div className={css.container}>
+      <div className="container">
           <div>
             {messages.map((message, index)=>
             <Message key={index} message={message} />)}
@@ -54,4 +50,4 @@ const messageField = () => {
     )
 }
 
-export default messageField;
+export default MessageField;
