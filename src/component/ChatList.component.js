@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import css from "./chatList.css";
 import { makeStyles } from '@material-ui/core/styles';
-import NormalGuyImg from "../assets/img/normalGuy.jpg"
-import AbnormalGuyImg from "../assets/img/unnormal-guy.jpg"
-import MarinaNotGuyImg from "../assets/img/marina.jpg"
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -12,7 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames'
-
+import {Link} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
       color:"#FFFFFF",
@@ -23,28 +20,19 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const ChatList = () => {
-        const [contacts, setContacts] = useState([{
-                name: "Matt Damon",
-                picture: NormalGuyImg
-            },
-            {
-                name: "Brendon Urie",
-                picture: AbnormalGuyImg
-            },
-            {
-                name: "Marina Diamandis",
-                picture: MarinaNotGuyImg
-            }
-        ]);
-
-        const classes = useStyles();
+const ChatList = (props) => {
+  
+    const classes = useStyles();
     
      return(
     <List className={classNames(css.chatList,classes.root)}>
-       { contacts.map( 
+       { props.contacts.map( 
            (contact,index)=>
-        <div key={index}>
+           
+           <div key={index}>
+     <Link to={"/chat/"+contact.chatId}>
+
+     
         <ListItem key={index} alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src={contact.picture} />
@@ -73,7 +61,10 @@ const ChatList = () => {
         />
       </ListItem>
       <Divider variant="inset" component="li" />
-        </div>
+</Link>
+
+</div>
+
         )}
     </List>
     )
