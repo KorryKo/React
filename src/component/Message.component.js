@@ -15,9 +15,9 @@ const Message = (props) =>{
     } else{
         return (
             <div  className={classNames(css.messageContainer, css.botContainer)}>
-            <p className={css.botMessage}>{props.message.author}: {props.message.value}</p>
-            <img className={css.messageImg} height="50px" width="50px" src={BotImg}/>
-        </div>
+                <p className={css.botMessage}>{props.message.author}: {props.message.value}</p>
+                <img className={css.messageImg} height="50px" width="50px" src={BotImg}/>
+            </div>
         )
     }   
 } 

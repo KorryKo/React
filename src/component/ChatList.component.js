@@ -26,13 +26,13 @@ const ChatList = (props) => {
     
      return(
     <List className={classNames(css.chatList,classes.root)}>
-       { props.contacts.map( 
+       { props.chatMessages.map( 
            (contact,index)=>
            
            <div key={index}>
      <Link to={"/chat/"+contact.chatId}>
 
-     
+    
         <ListItem key={index} alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src={contact.picture} />

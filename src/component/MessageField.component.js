@@ -6,41 +6,20 @@ import Paper from '@material-ui/core/Paper';
 import ChatList from "./ChatList.component";
 import TextField from '@material-ui/core/TextField';
 import Messages from "./Messages.component";
-import NormalGuyImg from "../assets/img/normalGuy.jpg"
-import YohAsakuraImg from "../assets/img/io-asakura.jpg"
-import AbnormalGuyImg from "../assets/img/unnormal-guy.jpg"
-import MarinaNotGuyImg from "../assets/img/marina.jpg"
+import { useDispatch,connect } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory
 } from "react-router-dom";
+import { updateMessages } from "../store/messages/actions";
 
-
-const MessageField = () => {
+const MessageField = (props) => {
     const [latestMessage, setLatestMessage] = useState({});
     const [messageValue, setMessageValue] = useState("");
-    const [contacts, setContacts] = useState([{
-        chatId: "brendon1",
-        name: "Brendon Urie",
-        picture: AbnormalGuyImg,
-        messages: []
-      },
-      {
-        chatId: "yoh1",
-        name: "Yoh Asakura",
-        picture: YohAsakuraImg,
-        messages: []
-      },
-      {
-        chatId: "marina1",
-        name: "Marina Diamandis",
-        picture: MarinaNotGuyImg,
-        messages: []
-      }
-    ]);
-
+    const [chatMessages, setChatMessages] = useState(props.chatMessages);
+    const dispatch = useDispatch();
+ 
     const submitMessage = (event, chatId, newAuthor) => {
       event.preventDefault()
       const message = {
@@ -56,19 +35,18 @@ const MessageField = () => {
         value: "Beep Boop",
         author: "Bot"
       }
+      
     setTimeout(()=>{
       addMessage(latestMessage.chatId,"Bot", message)
     },1000)
     }
 
     const addMessage = (chatId, newAuthor, message) => {
+      let newChatMessage = chatMessages.find(chatMessage => chatMessage.chatId == chatId).messages.push(message)
+      let chatMessage = chatMessages.filter(chatMessage => chatMessage.chatId !== chatId)
+       chatMessage.push(newChatMessage)
 
-    console.log(chatId)
-
-    let newContact = contacts.find(contact => contact.chatId == chatId).messages.push(message)
-    let contact = contacts.filter(contact => contact.chatId !== chatId)
-    contact.push(newContact)
-
+      dispatch(updateMessages(chatMessages))
 
       setMessageValue(" ")
       setLatestMessage({
@@ -97,21 +75,16 @@ const MessageField = () => {
     }, [latestMessage]);
 
   return (
-    <div>
+    <>
       <Paper elevation={1} className={css.chatBox}>
-
       <Router>
-
-      <ChatList contacts={contacts} />
-  
+      <ChatList chatMessages={chatMessages} />
         <div className={css.messageField}>
-
         <Switch>
-          {contacts.map((contact,index)=> 
- 
-          <Route key={index} path={"/chat/" + contact.chatId}>
-          <Messages messages={contact.messages}></Messages>
-          <form className={css.messageBar} onSubmit={(e)=>submitMessage(e,contact.chatId,"You")}>
+          {chatMessages.map((chatMessage,index)=> 
+          <Route key={index} path={"/chat/" + chatMessage.chatId}>
+          <Messages messages={chatMessage.messages}></Messages>
+          <form className={css.messageBar} onSubmit={(e)=>submitMessage(e,chatMessage.chatId,"You")}>
             <TextField
               className={css.inputMessage}
               label="Message"
@@ -124,18 +97,19 @@ const MessageField = () => {
             </IconButton>
           </form>
         </Route>
-
           )}  
         </Switch>
-  
-      
         </div>
-
         </Router>
-
       </Paper>
-    </div>
+    </>
   )
 }
 
-export default MessageField;
+
+const mapStateToProps = store => ({
+  chatMessages: store.chatMessages.messages,
+});
+
+
+export default connect(mapStateToProps)(MessageField);
