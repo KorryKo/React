@@ -6,32 +6,36 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChatIcon from '@material-ui/icons/Chat';
 import {Link} from "react-router-dom";
-import { useSelector } from 'react-redux'
-const Header = (props)=>{
-  const [name, setName] = useState(useSelector((state) => state.profile.name))
+import {connect} from 'react-redux'
 
-    return(
-<div>
-      <AppBar position="static" className={css.navBar}>
-        <Toolbar>
-        <Link to="/profile">
-          <IconButton edge="start" color="inherit">
-            <AccountCircleIcon />
-          </IconButton>
-        </Link>
+const Header = (props) => {
+    const [name, setName] = useState(props.name)
 
-        <span className={css.name}>{name} </span>
+    return (
+        <div>
+            <AppBar position="static" className={css.navBar}>
+                <Toolbar>
+                    <Link to="/profile">
+                        <IconButton edge="start" color="inherit">
+                            <AccountCircleIcon/>
+                        </IconButton>
+                    </Link>
 
-        <Link to="/">
-          <IconButton edge="start" color="inherit">
-            <ChatIcon />
-          </IconButton>
-        </Link>
+                    <span className={css.name}>{name} </span>
 
-        </Toolbar>
-      </AppBar>
-    </div>
+                    <Link to="/">
+                        <IconButton edge="start" color="inherit">
+                            <ChatIcon/>
+                        </IconButton>
+                    </Link>
+                </Toolbar>
+            </AppBar>
+        </div>
     )
 }
 
-export default Header;
+const mapStateToProps = store => ({
+    name: store.profile.name,
+});
+
+export default connect(mapStateToProps)(Header);
