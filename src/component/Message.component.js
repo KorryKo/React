@@ -5,7 +5,7 @@ import BotImg from "../assets/img/bot.jpg"
 import classNames from 'classnames'
  
 const Message = (props) =>{
-    if(props.message.author != "Bot") {
+    if(props.message.author !== "Bot") {
         return (
             <div className={classNames(css.messageContainer,css.youContainer)}>
                 <img className={css.messageImg} height="50px" width="50px" src={NormalGuyImg}/>

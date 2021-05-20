@@ -21,12 +21,7 @@
   display: flex;
   margin-top: auto;
 }
-.messageBox{
-  align-self: flex-start;
-  overflow-y: scroll;
-  max-height: 320px;
-  width: 100%;
-}
+
 
 /* width */
 ::-webkit-scrollbar {
