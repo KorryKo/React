@@ -1,5 +1,5 @@
 import React from "react";
-import css from "./chatList.css";
+import css from "./styles.css";
 import {makeStyles} from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -10,8 +10,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames'
 import {Link} from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         color: "#FFFFFF",
     },
@@ -21,20 +22,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const ChatList = (props) => {
+const Index = () => {
 
     const classes = useStyles();
+    const chats = useSelector(store => store.chats.chatList);
 
     return (
         <List className={classNames(css.chatList, classes.root)}>
-            {props.chatMessages.map(
-                (contact, index) =>
-
+            {chats.map(
+                (chat, index) =>
                     <div key={index}>
-                        <Link to={"/chat/" + contact.chatId}>
+                        <Link to={`/chats/${chat.chatId}`}>
                             <ListItem key={index} alignItems="flex-start">
                                 <ListItemAvatar>
-                                    <Avatar alt="Remy Sharp" src={contact.picture}/>
+                                    <Avatar alt="Remy Sharp" src={chat.picture}/>
                                 </ListItemAvatar>
                                 <ListItemText
                                     className={classes.root}
@@ -47,7 +48,7 @@ const ChatList = (props) => {
                                                 className={classes.root}
                                                 color="initial"
                                             >
-                                                {contact.name}
+                                                {chat.name}
                                             </Typography>
                                             <Typography
                                                 component="span"
@@ -61,11 +62,10 @@ const ChatList = (props) => {
                             </ListItem>
                             <Divider variant="inset" component="li"/>
                         </Link>
-
                     </div>
             )}
         </List>
     )
 }
 
-export default ChatList;
+export default Index;

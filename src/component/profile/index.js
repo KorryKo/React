@@ -1,10 +1,10 @@
-import React, {useState} from "react"
-import css from "./profile.css";
+import React from "react"
+import css from "./styles.css";
 import Paper from '@material-ui/core/Paper';
 import {useSelector} from 'react-redux'
 
-const Profile = (props) => {
-    const [name, setName] = useState(useSelector((store) => store.profile.name));
+const Profile = () => {
+    const name = useSelector(store => store.profile.name);
 
     return (
         <Paper elevation={1} className={css.profile}>

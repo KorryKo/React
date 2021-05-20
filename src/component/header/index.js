@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import css from "./header.css"
+import React from "react";
+import css from "./styles.css"
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChatIcon from '@material-ui/icons/Chat';
 import {Link} from "react-router-dom";
-import {connect} from 'react-redux'
+import { useSelector} from 'react-redux'
 
-const Header = (props) => {
-    const [name, setName] = useState(props.name)
+const Header = () => {
+    const name = useSelector(store => store.profile.name);
 
     return (
         <div>
@@ -34,8 +34,5 @@ const Header = (props) => {
     )
 }
 
-const mapStateToProps = store => ({
-    name: store.profile.name,
-});
 
-export default connect(mapStateToProps)(Header);
+export default Header;

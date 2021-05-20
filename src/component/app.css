@@ -1,0 +1,14 @@
+.container {
+    width: 992px;
+    margin: 160px auto;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c4c4c4;
+    border-radius: 10px;
+}
