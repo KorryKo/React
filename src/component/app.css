@@ -1,7 +1,9 @@
 .container {
     width: 992px;
     margin: 160px auto;
+    background-color: white;
 }
+
 /* width */
 ::-webkit-scrollbar {
     width: 4px;

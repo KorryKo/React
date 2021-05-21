@@ -16,7 +16,7 @@ const App = () => {
                         <Profile/>
                     </Route>
                     <Route path="/chats/:chatId?">
-                        <MessageField/>
+                        <MessageField />
                     </Route>
                     <Route path={"/"}>
                         <ChatList/>
