@@ -1,15 +1,13 @@
-import React, {useEffect, useRef, useState} from "react";
-import css from "./styles.css";
+import React, {useEffect} from "react";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
 import ListItem from "@material-ui/core/ListItem";
-import {useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/core/styles";
-import {AUTHORS} from "../../utils/constants";
+import {animateChat} from "../../store/chats/actions";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -24,27 +22,17 @@ const useStyles = makeStyles(() => ({
 const Chat = (props) => {
 
     const classes = useStyles();
-    const messageList = useSelector(store => store.messages.messageList);
-    const {chatId} = useParams();
-    const loaded = useRef(false);
-    const [isBlink,setIsBlink] = useState("")
+    const chatAnimate = useSelector(store => store.chats.animateChat);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (loaded.current) {
-            if (chatId !== undefined) {
-                if (messageList[props.chat.chatId][messageList[props.chat.chatId].length - 1].author === AUTHORS.BOT) {
-                    setIsBlink(css.animateChat)
-                }else{
-                    setIsBlink("")
-                }
-            }
-        } else {
-            loaded.current = true;
-        }
-    }, [messageList[props.chat.chatId]])
+        dispatch(animateChat("", "", ""))
+    }, [])
+
+    console.log(chatAnimate)
 
     return (
-        <ListItem className={isBlink} alignItems="flex-start">
+        <ListItem className={chatAnimate.chatId === props.chat.chatId ? chatAnimate.css : ""} alignItems="flex-start">
             <ListItemAvatar>
                 <Avatar alt="Remy Sharp" src={props.chat.picture}/>
             </ListItemAvatar>

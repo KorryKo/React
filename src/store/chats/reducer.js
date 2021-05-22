@@ -1,4 +1,4 @@
-import {ADD_CHAT} from "./actions";
+import {ADD_CHAT, ANIMATE_CHAT} from "./actions";
 
 const initialState = {
     chatList: [
@@ -17,18 +17,29 @@ const initialState = {
             name: "Marina Diamandis",
             picture: "https://upload.wikimedia.org/wikipedia/commons/a/ad/Marina_Diamandis_%2814091068631%29_%28cropped%29_at_Fendi_close_crop.jpg"
         }
-    ]
+    ],
+    animateChat: {}
 };
 
 export const chatListReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_CHAT: {
+        case ADD_CHAT:
             return {
                 ...state,
                 chats: [...state.chatList, action.payload.newChat]
-            };
-        }
+            }
+
+        case ANIMATE_CHAT:
+            return {
+                ...state,
+                animateChat: {
+                    chatId: action.payload.chaId,
+                    author: action.payload.author,
+                    css:action.payload.css
+                }
+            }
+
         default:
-            return state;
+            return state
     }
 };
