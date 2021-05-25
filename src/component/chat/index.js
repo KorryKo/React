@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/core/styles";
 import {animateChat} from "../../store/chats/actions";
 
+
 const useStyles = makeStyles(() => ({
     root: {
         color: "#FFFFFF",
@@ -28,8 +29,6 @@ const Chat = (props) => {
     useEffect(() => {
         dispatch(animateChat("", "", ""))
     }, [])
-
-    console.log(chatAnimate)
 
     return (
         <ListItem className={chatAnimate.chatId === props.chat.chatId ? chatAnimate.css : ""} alignItems="flex-start">

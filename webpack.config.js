@@ -4,14 +4,16 @@ module.exports = {
     entry: "./src/index.js",
     mode: "development",
     output: {
-        filename: "./main.js"
+        filename: "./main.js",
+        publicPath: '/'
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
         port: 9000,
         watchContentBase: true,
-        progress: true
+        progress: true,
+        historyApiFallback: true
     },
 
     module: {

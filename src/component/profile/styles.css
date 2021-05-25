@@ -5,6 +5,10 @@
 
 }
 
+.img {
+    border-radius: 100px;
+}
+
 .content {
     padding: 32px;
 }
