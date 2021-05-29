@@ -5,7 +5,8 @@ import {chatListReducer} from "./chats/reducer";
 import {persistReducer, persistStore} from 'redux-persist'
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage'
-import { apiMiddleware } from 'redux-api-middleware';
+import {apiMiddleware} from 'redux-api-middleware';
+
 const persistConfig = {
     key: "marinaMessenger",
     storage,
@@ -20,6 +21,6 @@ const persistedReducer = persistReducer(
     })
 );
 
-export const store = createStore(persistedReducer, applyMiddleware(thunk,apiMiddleware));
+export const store = createStore(persistedReducer, applyMiddleware(thunk, apiMiddleware));
 
-export const persistor = persistStore(store);
+export const persist = persistStore(store);
